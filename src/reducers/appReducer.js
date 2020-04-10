@@ -1,14 +1,11 @@
 const initialState = {
-  startApp: false,
-  startGame: false,
-  showLobby: false,
-  backendSeverActive: false
+  test1: null
 };
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
-    case "START_APP":
-      return { ...state, startApp: true };
+    case "UPDATE_TEST_1":
+      return { ...state, test1: action.payload };
     default:
       return state;
   }
