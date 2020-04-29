@@ -9,36 +9,32 @@ export default function* appSagas() {
 function* testButtonGet(action) {
   const data = { payload: action.payload };
   const fetchPayload = {
-    method: "POST",
-    mode: "no-cors",
-    cache: "no-cache",
-    credentials: "same-origin",
+    method: "GET",
+    mode: "cors",
     headers: {
       "Content-Type": "application/json"
-    },
-    redirect: "follow",
-    referrerPolicy: "no-referrer",
-    body: JSON.stringify(data)
+    }
   };
 
   let response = false;
 
   try {
     if (window.location.hostname === "localhost") {
-      response = yield fetch("http://localhost:5000/test", fetchPayload);
+      response = yield fetch("http://localhost:5000/", fetchPayload);
     } else {
       response = yield fetch(
         "https://final-project-ai-wars-backend.herokuapp.com/ping???????????????????????????????????????"
       );
     }
-    debugger
-    if (!response.ok) throw new Error("ERROR: No Response from backend sever");
+    if (!response.ok) throw new Error("ERROR: No Response from backend server");
+    
   } catch (error) {
     console.log(error);
   }
 
   if (response.ok) {
     const data = yield response.json();
+    console.log(data)
     if (data) {
       yield put(actions.updateTest1(data));
     }
